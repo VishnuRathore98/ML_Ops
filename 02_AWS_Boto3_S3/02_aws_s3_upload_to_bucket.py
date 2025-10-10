@@ -14,3 +14,9 @@ object_name = os.path.basename(file_path)
 
 # upload to bucket
 s3_client.upload_file(file_path, bucket_name, object_name)
+
+# list all objects in s3
+response = s3_client.list_objects_v2(Bucket=bucket_name)
+
+for obj in response['Contents']:
+    print(obj)
