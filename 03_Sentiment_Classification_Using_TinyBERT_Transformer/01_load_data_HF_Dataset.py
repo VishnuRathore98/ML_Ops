@@ -6,7 +6,8 @@ import time
 
 
 url = 'https://raw.githubusercontent.com/laxmimerit/All-CSV-ML-Data-Files-Download/master/IMDB-Dataset.csv'
-local_dataset_path = 'IMDB-Dataset.csv'
+local_dataset_path = './datasets/IMDB-Dataset.csv'
+save_to_disk_path = './datasets/imdb_labeled/'
 
 start = time.time()
 
@@ -30,7 +31,7 @@ train_dataset = dataset['train']
 # Dividing into training and testing sets 
 dataset = train_dataset.train_test_split(test_size=0.3)
 # Reading as pandas dataframe
-data = pd.read_csv('IMDB-Dataset.csv')
+data = pd.read_csv(local_dataset_path)
 end = time.time()
 
 # Labeling the data 
@@ -43,3 +44,7 @@ dataset = dataset.map(lambda x: {'label': label2id[x['sentiment']]})
 print(f'Time took for data loading and labeling : {end-start:.2f} seconds.')
 
 pprint(dataset['test'][0])
+
+dataset.save_to_disk(save_to_disk_path)
+
+print("Labeled dataset saved.")
