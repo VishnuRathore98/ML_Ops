@@ -6,17 +6,18 @@ import time
 
 
 url = 'https://raw.githubusercontent.com/laxmimerit/All-CSV-ML-Data-Files-Download/master/IMDB-Dataset.csv'
-local_dataset_path = './datasets/IMDB-Dataset.csv'
-save_to_disk_path = './datasets/imdb_labeled/'
+local_dataset_path = './local_datasets/IMDB-Dataset.csv'
+save_to_disk_path = './local_datasets/imdb_labeled/'
 
 start = time.time()
 
 # Storing dataset locally such that data loading time could be decreased
 # Checking if dataset exists locally
-if not os.path.exists(local_dataset_path):
+if not os.path.exists(save_to_disk_path):
     print('Downloading dataset...')
     # Read the dataset from online url to memory
     data = pd.read_csv(url)
+    os.makedirs(save_to_disk_path)
     # Save the csv file locally without indexing it
     data.to_csv(local_dataset_path, index=False)
 else:
@@ -24,7 +25,8 @@ else:
     # Reading using pandas does not cache in memory for faster access in subsequest accesses 
     #data = pd.read_csv(local_dataset_path)
     # Using dataset's load_dataset function for chaching and quick access 
-    dataset = load_dataset('csv', data_files=local_dataset_path)
+
+dataset = load_dataset('csv', data_files=local_dataset_path)
 
 # Fetch the default trainig set 
 train_dataset = dataset['train']
