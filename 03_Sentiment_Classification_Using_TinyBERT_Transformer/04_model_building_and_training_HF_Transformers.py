@@ -67,3 +67,6 @@ print("----------- model training completed------------------")
 trainer.evaluate()
 
 print("-----------model evaluation completed------------------")
+
+print("-----------saving the trained model--------------------")
+trainer.save_model('TinyBERT-sentiment-analysis')
