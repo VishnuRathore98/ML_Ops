@@ -1,4 +1,5 @@
 .env
 .venv
 *.csv
-datasets
+local_datasets
+train_dir
